@@ -1,14 +1,4 @@
-/*****************************************************************************
-  								Yiming Yu
-  								cs100feu
- 
-  			         Assignment 3
- File name:	uncompress.cpp
- Description:	The uncompress.cpp file will contain the code needed for the 
-		decompression portion of this assignment. When run, this 
-		program will read the contents of the file named by its first 
-		command line argument.
-*****************************************************************************/
+
 #include <iostream>
 #include <vector>
 #include "HCTree.hpp"
