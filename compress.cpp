@@ -1,18 +1,4 @@
-/*****************************************************************************
-  								Yiming Yu
-  								cs100feu
- 
-  			         Assignment 3
- File name:	compress.cpp
- Description:	The compress.cpp file will contain the code needed for the 
-		compression portion of this assignment. When run, this program 
-		will read the contents of the file named by its first command 
-		line argument, construct a Huffman tree for the contents of 
-		that file, and use the Huffman tree to encode the data into 
-		binary. The encoded data is essentially the compressed version 
-		of the contents of the input file and should be written to a 
-		output file named by the second command line argument.
-****************************************************************************/
+
 #include "HCTree.hpp"
 #include <iostream>
 #include <iomanip>
