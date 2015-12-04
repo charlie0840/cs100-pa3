@@ -1,13 +1,4 @@
-/*****************************************************************************
-  								Yiming Yu
-  								cs100feu
- 
-  			         Assignment 3
- File name:	HCTree.cpp
- Description:	a binary tree that represents the Huffman tree and further 
-		provides the encoding and decoding functionalities.implements 
-		the interfaces specified in HCTree.hpp.
-*****************************************************************************/
+
 #include "HCTree.hpp"
 #include <queue>
 #include <vector>
