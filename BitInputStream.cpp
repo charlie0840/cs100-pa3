@@ -1,12 +1,4 @@
-/*****************************************************************************
-  								Yiming Yu
-  								cs100feu
- 
-  			         Assignment 3
- File name:	BitInputStream.cpp
- Description:	The BitInputStream will be used for the decompression part of 
-		the assignment. 
-*****************************************************************************/
+
 #include "BitInputStream.hpp"
 #include <iostream>
 
