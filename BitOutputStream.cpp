@@ -1,12 +1,4 @@
-/*****************************************************************************
-  								Yiming Yu
-  								cs100feu
- 
-  			         Assignment 3
- File name:	BitOutputStream.cpp
- Description:	The BitOutputStream will be used for the compression part of 
-		the assignment.
-*****************************************************************************/
+
 #include "BitOutputStream.hpp"
 #include <iostream>
 
