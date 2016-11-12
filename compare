@@ -1,0 +1,152 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date:    12:08:13 11/08/2016 
+// Design Name: 
+// Module Name:    find_two_max 
+// Project Name: 
+// Target Devices: 
+// Tool versions: 
+// Description: 
+//
+// Dependencies: 
+//
+// Revision: 
+// Revision 0.01 - File Created
+// Additional Comments: 
+//
+//////////////////////////////////////////////////////////////////////////////////
+module find_two_max #(parameter N = 1024)(
+	 input rst, clk,
+	 output reg [31:0] result4, result3, result2, result1
+    );
+	 
+	 reg [10:0] addr;
+	 reg [3:0] state;
+	 reg [4:0] counter, counter1, counter2;
+	 reg [31:0] maxa, maxb, A, B, input1, input2;
+	 wire [31:0] dout;
+	 wire [0:0] RESULT;
+	 
+	 
+	 ROM_1 r(
+	     .clka(clk),
+		  .addra(addr[9:0]),
+		  .douta(dout)
+	 );
+	 
+	 comparator c(
+		  .clk(clk),
+		  .a(A),
+		  .b(B),
+		  .result(RESULT)
+	 );
+	 
+	 always @(posedge clk) begin
+		  if(rst)
+		      state <= 0;
+		  else begin
+			 case(state)
+				0: begin
+					addr <= 0;
+					maxa <= 0;
+					maxb <= 0;
+					input1 <= 0;
+					input2 <= 0;
+					result4 <= 0;
+					result3 <= 0;
+					result2 <= 0;
+					result1 <= 0;
+					A <= 0;
+					B <= 0;
+					counter <= 0;
+					counter1 <= 0;
+					counter2 <= 0;
+					input1 <= 0;
+					input2 <= 0;
+					state <= 1;
+				end
+				
+				1: begin
+					counter1 <= counter1 + 1;
+					if(counter1 >= 3)
+					begin
+						state <= 2;
+					end
+					input1 <= dout;
+					input2 <= maxa;
+				end
+					
+				2: begin
+					A <= input1;
+					B <= input2;
+					state <= 3;
+				end
+				
+				3: begin
+					counter <= counter + 1;
+					if(counter > 3)
+					begin
+						counter <= 0;
+						state <= 4;
+					end
+					
+					else
+						state <= 3;
+				end
+				
+				4: begin
+					if(RESULT[0] == 1 && counter2 == 0)
+					begin
+						result4 <= addr;
+						result3 <= input1;
+						result2 <= result4;
+						result1 <= result3;
+						counter2 <= counter2 + 1;
+						maxa <= input1;
+						addr <= addr + 1;
+						state <= 5;
+					end
+					
+					else if(RESULT[0] != 1 && counter2 == 0)
+					begin
+						B <= maxb;
+						state <= 3;
+						counter2 <= counter2 + 1;
+					end
+					
+					else if(RESULT[0] == 1 && counter2 == 1)
+					begin
+						result2 <= addr;
+						result1 <= input1;
+						counter2 <= 0;
+						addr <= addr + 1;
+						maxb <= input1;
+						state <= 5;
+					end
+					
+					else if(RESULT[0] != 1 && counter2 == 1)
+					begin
+						counter2 <= 0;
+						addr <= addr + 1;
+						state <= 5;
+					end
+					
+				end
+					
+				5: begin
+					input2 <= maxa;				
+					state <= (addr < N)? 6:5;
+				end
+				
+				6: begin
+					input1 <= dout;
+					state <= 2;
+				end
+					
+			  endcase
+		 end
+	end
+endmodule
